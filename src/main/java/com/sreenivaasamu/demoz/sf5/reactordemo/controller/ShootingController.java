@@ -1,7 +1,6 @@
 package com.sreenivaasamu.demoz.sf5.reactordemo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +18,7 @@ public class ShootingController {
 	private EventBus eventBus;
 
 	@GetMapping("/lockTarget/{param}")
-	public ResponseEntity shoot(@PathVariable Integer param) {
+	public ResponseEntity<String> shoot(@PathVariable Integer param) {
 		for (int i = 0; i < param; i++) {
 			Bullet data = new Bullet();
 			data.setId(i);
@@ -29,6 +28,7 @@ public class ShootingController {
 			System.out.printf("Fire Order [%1$s]: submitted successfully %n", i);
 		}
 		
-		return new ResponseEntity(HttpStatus.OK);		
+		ResponseEntity<String> result = ResponseEntity.accepted().body("Firing Order accepted");
+		return result;		
 	}
 }
